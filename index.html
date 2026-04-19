@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karthik Baliga — Data Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   ✏️ EDIT: search "✏️ EDIT:" to update
+   ═══════════════════════════════════════ */
+:root {
+  --bg:      #1c1a2e;
+  --bg2:     #221f35;
+  --bg3:     #2a263f;
+  --card:    #252240;
+  --card2:   #2e2a48;
+  --border:  rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.15);
+  --text:    #ede9ff;
+  --muted:   #9b97be;
+  --dim:     #5e5a80;
+  --purple:  #a78bfa;
+  --teal:    #2dd4bf;
+  --amber:   #fbbf24;
+  --coral:   #fb7185;
+  --blue:    #60a5fa;
+  --green:   #4ade80;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* subtle texture */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 10%, rgba(124,58,237,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 80%, rgba(14,164,122,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 15%, rgba(96,165,250,0.10) 0%, transparent 55%);
+}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:rgba(28,26,46,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:inline-block;padding:8px 20px;font-size:13px;font-weight:500;background:var(--purple);color:#1c1a2e;border-radius:8px;text-decoration:none;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+
+/* LAYOUT */
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:0 2rem}
+section{padding:5rem 0}
+
+.sec-label{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:10px;margin-bottom:2.5rem}
+.sec-label::before{content:'';width:24px;height:2px;border-radius:2px;flex-shrink:0}
+.sl-purple::before{background:var(--purple)}
+.sl-teal::before{background:var(--teal)}
+.sl-amber::before{background:var(--amber)}
+.sl-coral::before{background:var(--coral)}
+.sl-blue::before{background:var(--blue)}
+
+/* HERO */
+#hero{padding:6rem 0 4rem}
+.hero-inner{display:grid;grid-template-columns:1fr 175px;gap:3rem;align-items:start}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.6rem}
+.hbadge{font-size:11px;font-weight:500;padding:5px 13px;border-radius:20px;letter-spacing:.4px;border:1px solid}
+.hb-p{background:rgba(167,139,250,.12);color:var(--purple);border-color:rgba(167,139,250,.25)}
+.hb-t{background:rgba(45,212,191,.1);color:var(--teal);border-color:rgba(45,212,191,.22)}
+.hb-a{background:rgba(251,191,36,.1);color:var(--amber);border-color:rgba(251,191,36,.22)}
+
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(34px,5.5vw,54px);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1rem}
+.hn-main{color:var(--text)}
+.hn-sub{display:block;font-size:72%;font-weight:400;color:var(--muted);margin-top:.3rem}
+.hero-desc{font-size:15px;color:var(--muted);line-height:1.8;max-width:470px;margin-bottom:2rem;font-weight:300}
+
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2rem}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;background:var(--purple);color:#1c1a2e;border:none;border-radius:9px;cursor:pointer;text-decoration:none;transition:opacity .15s,transform .15s}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;background:transparent;color:var(--text);border:1px solid var(--border2);border-radius:9px;cursor:pointer;text-decoration:none;transition:border-color .15s,transform .15s}
+.btn-outline:hover{border-color:var(--purple);transform:translateY(-1px)}
+
+.goal-strip{background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:1.1rem 1.4rem;display:flex;gap:12px;align-items:flex-start}
+.goal-icon{color:var(--purple);flex-shrink:0;margin-top:2px}
+.goal-text{font-size:13px;color:var(--muted);line-height:1.7}
+.goal-text strong{color:var(--purple);font-weight:500}
+
+.hero-photo{width:158px;height:158px;border-radius:20px;overflow:hidden;border:2px solid rgba(167,139,250,.25);background:var(--card);flex-shrink:0;position:relative}
+.hero-photo::after{content:'';position:absolute;inset:0;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* CARDS base */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--border2)}
+
+/* EXPERIENCE */
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;border-left:3px solid var(--purple)}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;gap:1rem}
+.exp-role{font-family:'Syne',sans-serif;font-size:20px;font-weight:700}
+.exp-period{font-size:12px;color:var(--dim);background:var(--bg3);padding:4px 12px;border-radius:20px;white-space:nowrap;border:1px solid var(--border)}
+.exp-org{font-size:13px;font-weight:500;color:var(--purple);margin-bottom:1.2rem;display:flex;align-items:center;gap:6px}
+.exp-org-dot{width:4px;height:4px;border-radius:50%;background:var(--purple)}
+.exp-pts{display:flex;flex-direction:column;gap:8px}
+.exp-pt{display:flex;gap:10px;align-items:flex-start}
+.exp-dot{width:5px;height:5px;border-radius:50%;background:var(--purple);flex-shrink:0;margin-top:8px}
+.exp-text{font-size:14px;color:var(--muted);line-height:1.65;font-weight:300}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem;transition:border-color .2s,transform .2s}
+.skill-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.skill-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.skill-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.si-p{background:rgba(167,139,250,.15)}
+.si-t{background:rgba(45,212,191,.13)}
+.si-a{background:rgba(251,191,36,.13)}
+.si-b{background:rgba(96,165,250,.13)}
+.skill-title{font-size:13px;font-weight:500;color:var(--text)}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;padding:4px 11px;border-radius:20px;font-weight:400}
+.pill-p{background:rgba(167,139,250,.13);color:var(--purple)}
+.pill-t{background:rgba(45,212,191,.11);color:var(--teal)}
+.pill-a{background:rgba(251,191,36,.11);color:var(--amber)}
+.pill-b{background:rgba(96,165,250,.11);color:var(--blue)}
+
+/* PROJECTS */
+.proj-list{display:flex;flex-direction:column;gap:14px}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;position:relative;overflow:hidden;transition:border-color .2s,transform .15s}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.p1::before{background:linear-gradient(90deg,var(--purple),var(--coral))}
+.p2::before{background:linear-gradient(90deg,var(--teal),var(--blue))}
+.proj-card:hover{border-color:var(--border2);transform:translateX(4px)}
+.proj-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.proj-num{font-size:11px;letter-spacing:1.5px;color:var(--dim);font-weight:500}
+.proj-period{font-size:11px;color:var(--dim)}
+.proj-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:.6rem;line-height:1.35;color:var(--text)}
+.proj-desc{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:1rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ptag{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;border:1px solid}
+.ptag-p{background:rgba(167,139,250,.1);color:var(--purple);border-color:rgba(167,139,250,.25)}
+.ptag-t{background:rgba(45,212,191,.1);color:var(--teal);border-color:rgba(45,212,191,.25)}
+
+/* EDUCATION */
+.edu-list{display:flex;flex-direction:column;gap:10px}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:16px;transition:border-color .2s}
+.edu-card:hover{border-color:var(--border2)}
+.edu-icon{width:46px;height:46px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Syne',sans-serif}
+.ei-p{background:rgba(167,139,250,.15);color:var(--purple)}
+.ei-t{background:rgba(45,212,191,.13);color:var(--teal)}
+.ei-a{background:rgba(251,191,36,.13);color:var(--amber)}
+.edu-info{flex:1}
+.edu-school{font-size:14px;font-weight:500;margin-bottom:2px;color:var(--text)}
+.edu-degree{font-size:12px;color:var(--muted);font-weight:300}
+.edu-right{text-align:right;flex-shrink:0}
+.edu-year{font-size:11px;color:var(--dim);margin-bottom:4px}
+.edu-score{font-size:14px;font-weight:600}
+.sc-p{color:var(--purple)}
+.sc-t{color:var(--teal)}
+.sc-a{color:var(--amber)}
+
+/* CERTS */
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cert-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s}
+.cert-card:hover{border-color:var(--border2)}
+.cert-ico{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:'Syne',sans-serif}
+.ci-p{background:rgba(167,139,250,.18);color:var(--purple)}
+.ci-t{background:rgba(45,212,191,.15);color:var(--teal)}
+.ci-a{background:rgba(251,191,36,.15);color:var(--amber)}
+.ci-b{background:rgba(96,165,250,.15);color:var(--blue)}
+.ci-g{background:rgba(74,222,128,.15);color:var(--green)}
+.cert-name{font-size:13px;font-weight:500;margin-bottom:2px;line-height:1.35;color:var(--text)}
+.cert-issuer{font-size:11px;color:var(--dim)}
+
+/* ACHIEVEMENTS */
+.achv-list{display:flex;flex-direction:column;gap:8px;margin-top:2rem}
+.achv{display:flex;align-items:center;gap:14px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.3rem;transition:border-color .2s}
+.achv:hover{border-color:rgba(251,191,36,.3)}
+.achv-star{width:30px;height:30px;border-radius:8px;background:rgba(251,191,36,.13);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.achv-name{font-size:13px;font-weight:400;flex:1;color:var(--text)}
+.achv-date{font-size:11px;color:var(--dim);white-space:nowrap}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.contact-card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;text-decoration:none;color:inherit;transition:border-color .2s,transform .15s}
+.contact-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.cc-icon{width:40px;height:40px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.cc-p{background:rgba(167,139,250,.15)}
+.cc-t{background:rgba(45,212,191,.13)}
+.cc-a{background:rgba(251,191,36,.13)}
+.cc-b{background:rgba(96,165,250,.13)}
+.cc-icon svg{width:18px;height:18px}
+.cc-label{font-size:13px;font-weight:500;margin-bottom:2px;color:var(--text)}
+.cc-val{font-size:12px;color:var(--muted)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.foot-name{font-family:'Syne',sans-serif;font-size:14px;color:var(--dim)}
+.foot-links{display:flex;gap:16px}
+.foot-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--text)}
+
+/* SCROLL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  nav{padding:1rem 1.2rem}
+  .nav-links{display:none}
+  .wrap{padding:0 1.2rem}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-photo{width:120px;height:145px}
+  .hero-name{font-size:32px}
+  .cert-grid,.contact-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:8px;text-align:center;padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Karthik Baliga</div><!-- ✏️ EDIT: Your name -->
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Hire me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="hero-badges">
+          <span class="hbadge hb-p">Data Engineering</span>
+          <span class="hbadge hb-t">Analytics</span>
+          <span class="hbadge hb-a">Open to work</span>
+        </div>
+        <h1 class="hero-name">
+          <span class="hn-main">Karthik Baliga</span><!-- ✏️ EDIT: Your name -->
+          <span class="hn-sub">Aspiring data engineer</span>
+        </h1>
+        <!-- ✏️ EDIT: Your one-line description -->
+        <p class="hero-desc">B.E. in AI &amp; Machine Learning from Canara Engineering College. I build dashboards, pipelines, and AI-powered tools that turn messy data into clear decisions.</p>
+        <div class="hero-btns">
+          <a class="btn-primary" href="#contact">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            Get in touch
+          </a>
+          <!-- ✏️ EDIT: Update href to your resume filename -->
+          <a class="btn-outline" href="Karthik_Baliga_Resume.pdf" download>
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </a>
+        </div>
+        <div class="goal-strip">
+          <div class="goal-icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <!-- ✏️ EDIT: Your career goal statement -->
+          <p class="goal-text"><strong>Career goal —</strong> Fresh graduate pursuing a career in data engineering &amp; analytics. Passionate about pipelines, dashboards, and AI systems that help teams make smarter, faster decisions.</p>
+        </div>
+      </div>
+      <!-- ✏️ EDIT: Replace base64 with your own photo or use src="your-photo.jpg" -->
+      <div class="hero-photo reveal" style="transition-delay:.15s">
+        <img src="myphoto.jpg"alt="Karthik Baliga">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-label sl-purple">Experience</div>
+    <!-- ✏️ EDIT: Duplicate exp-card for more jobs -->
+    <div class="exp-card reveal">
+      <div class="exp-top">
+        <div class="exp-role">Data Analytics Intern</div><!-- ✏️ EDIT: Job title -->
+        <div class="exp-period">Dec 2025 – Feb 2026</div><!-- ✏️ EDIT: Dates -->
+      </div>
+      <div class="exp-org"><div class="exp-org-dot"></div>Infosys Springboard &nbsp;·&nbsp; Remote</div><!-- ✏️ EDIT: Company -->
+      <div class="exp-pts">
+        <!-- ✏️ EDIT: Add/remove exp-pt blocks -->
+        <div class="exp-pt"><div class="exp-dot"></div><div class="exp-text">Analyzed global military datasets of 140+ countries to identify trends in defense spending and manpower distribution.</div></div>
+        <div class="exp-pt"><div class="exp-dot"></div><div class="exp-text">Cleaned and transformed raw datasets, improving data consistency and usability for analysis.</div></div>
+        <div class="exp-pt"><div class="exp-dot"></div><div class="exp-text">Built Power BI dashboards with 10+ DAX measures tracking KPIs such as military strength index, asset allocation, and budget comparison.</div></div>
+        <div class="exp-pt"><div class="exp-dot"></div><div class="exp-text">Designed interactive visualizations enabling country-level comparison and trend analysis.</div></div>
+        <div class="exp-pt"><div class="exp-dot"></div><div class="exp-text">Derived insights on global military power distribution to support data-driven interpretation.</div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem">
+      <div class="sec-label sl-teal">Certifications</div>
+      <!-- ✏️ EDIT: Add/remove cert-card blocks -->
+      <div class="cert-grid reveal">
+        <div class="cert-card"><div class="cert-ico ci-p">Py</div><div><div class="cert-name">NPTEL – Python for Data Science</div><div class="cert-issuer">IIT Madras · Elite + Silver</div></div></div>
+        <div class="cert-card"><div class="cert-ico ci-t">AI</div><div><div class="cert-name">NPTEL – Fundamentals of AI</div><div class="cert-issuer">IIT Guwahati · Elite + Silver</div></div></div>
+        <div class="cert-card"><div class="cert-ico ci-a">G</div><div><div class="cert-name">Google AI Essentials Certificate</div><div class="cert-issuer">Google</div></div></div>
+        <div class="cert-card"><div class="cert-ico ci-b">IS</div><div><div class="cert-name">Programming in Python – Beginner</div><div class="cert-issuer">Infosys Springboard</div></div></div>
+        <div class="cert-card"><div class="cert-ico ci-g">DB</div><div><div class="cert-name">Introduction to MySQL</div><div class="cert-issuer">Infosys Springboard</div></div></div>
+      </div>
+    </div>
+
+    <div class="achv-list reveal">
+      <div class="sec-label sl-amber" style="margin-top:2.5rem">Achievements</div>
+      <!-- ✏️ EDIT: Add/remove achv blocks -->
+      <div class="achv">
+        <div class="achv-star"><svg width="14" height="14" fill="var(--amber)" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="achv-name">Certificate of Appreciation — The Great Bengaluru Hackathon</div>
+        <div class="achv-date">Mar 2025</div>
+      </div>
+      <div class="achv">
+        <div class="achv-star"><svg width="14" height="14" fill="var(--amber)" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="achv-name">Participant — Edu-Vitality Hackathon, R.V. College of Engineering (IEEE ComSoc)</div>
+        <div class="achv-date">Jun 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label sl-blue">Skills &amp; tools</div>
+    <!-- ✏️ EDIT: Add/remove skill-card and pill blocks -->
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon si-p"><svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <span class="skill-title">Languages</span>
+        </div>
+        <div class="pills"><span class="pill pill-p">Python</span><span class="pill pill-p">SQL</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon si-t"><svg width="16" height="16" fill="none" stroke="var(--teal)" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <span class="skill-title">Python libraries</span>
+        </div>
+        <div class="pills"><span class="pill pill-t">pandas</span><span class="pill pill-t">NumPy</span><span class="pill pill-t">Matplotlib</span><span class="pill pill-t">Seaborn</span><span class="pill pill-t">OpenCV</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon si-a"><svg width="16" height="16" fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <span class="skill-title">Visualization</span>
+        </div>
+        <div class="pills"><span class="pill pill-a">Power BI</span><span class="pill pill-a">Tableau</span><span class="pill pill-a">DAX</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-icon si-b"><svg width="16" height="16" fill="none" stroke="var(--blue)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <span class="skill-title">Databases &amp; tools</span>
+        </div>
+        <div class="pills"><span class="pill pill-b">MySQL</span><span class="pill pill-b">MongoDB</span><span class="pill pill-b">Excel</span><span class="pill pill-b">Git</span><span class="pill pill-b">Jupyter</span><span class="pill pill-b">Google Colab</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label sl-coral">Projects</div>
+    <!-- ✏️ EDIT: Duplicate proj-card for more projects -->
+    <div class="proj-list">
+      <div class="proj-card p1 reveal">
+        <div class="proj-meta">
+          <div class="proj-num">PROJECT 01</div>
+          <div class="proj-period">Jul – Nov 2025</div><!-- ✏️ EDIT: Dates -->
+        </div>
+        <!-- ✏️ EDIT: Project title -->
+        <div class="proj-title">Dashboard for Swachhta using AI-based image analysis</div>
+        <!-- ✏️ EDIT: Project description -->
+        <div class="proj-desc">AI-powered system that detects and classifies waste in public spaces from uploaded images. Produces a 0–100 cleanliness score with bounding boxes, tracks scores over time, generates PDF reports, and supports role-based authentication.</div>
+        <!-- ✏️ EDIT: Tech stack tags -->
+        <div class="proj-tags"><span class="ptag ptag-p">Python</span><span class="ptag ptag-p">OpenCV</span><span class="ptag ptag-p">MongoDB</span></div>
+      </div>
+      <div class="proj-card p2 reveal" style="transition-delay:.1s">
+        <div class="proj-meta">
+          <div class="proj-num">PROJECT 02</div>
+          <div class="proj-period">Dec 2025 – Feb 2026</div>
+        </div>
+        <div class="proj-title">Unified military analytics and comparison dashboard</div>
+        <div class="proj-desc">Interactive Power BI dashboard analyzing 140+ countries on military strength, defense budgets, and manpower. Features Quick Stats, Nation Overview, and Country Comparison modules with 10+ custom DAX measures and dynamic visualizations.</div>
+        <div class="proj-tags"><span class="ptag ptag-t">Power BI</span><span class="ptag ptag-t">DAX</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <div class="sec-label sl-teal">Education</div>
+    <!-- ✏️ EDIT: Add/remove edu-card blocks -->
+    <div class="edu-list reveal">
+      <div class="edu-card">
+        <div class="edu-icon ei-p">BE</div>
+        <div class="edu-info">
+          <div class="edu-school">Canara Engineering College, Mangaluru</div><!-- ✏️ EDIT -->
+          <div class="edu-degree">B.E. Artificial Intelligence &amp; Machine Learning</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-year">2022 – Present</div><!-- ✏️ EDIT -->
+          <div class="edu-score sc-p">CGPA 8.33</div><!-- ✏️ EDIT -->
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon ei-t">12</div>
+        <div class="edu-info">
+          <div class="edu-school">Excel PU College, Guruvayanakere</div>
+          <div class="edu-degree">Class 12 — PCMC stream</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-year">2020 – 2022</div>
+          <div class="edu-score sc-t">92%</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon ei-a">10</div>
+        <div class="edu-info">
+          <div class="edu-school">Sacred Heart English Medium School, Madanthyar</div>
+          <div class="edu-degree">Class 10</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-year">2020</div>
+          <div class="edu-score sc-a">87.2%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-label sl-purple">Get in touch</div>
+    <!-- ✏️ EDIT: Update href values with your real contact info -->
+    <div class="contact-grid reveal">
+      <a class="contact-card" href="mailto:karthikbaliga12@gmail.com"><!-- ✏️ EDIT -->
+        <div class="cc-icon cc-p"><svg fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z"/><polyline points="22,6 12,12 2,6"/></svg></div>
+        <div><div class="cc-label">Email</div><div class="cc-val">karthikbaliga12@gmail.com</div></div><!-- ✏️ EDIT -->
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/karthikbaliga" target="_blank" rel="noopener"><!-- ✏️ EDIT -->
+        <div class="cc-icon cc-t"><svg fill="none" stroke="var(--teal)" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div><div class="cc-label">LinkedIn</div><div class="cc-val">linkedin.com/in/karthikbaliga</div></div><!-- ✏️ EDIT -->
+      </a>
+      <a class="contact-card" href="tel:+919880369527"><!-- ✏️ EDIT -->
+        <div class="cc-icon cc-a"><svg fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="cc-label">Phone</div><div class="cc-val">+91 9880369527</div></div><!-- ✏️ EDIT -->
+      </a>
+      <a class="contact-card" href="Karthik_Baliga_Resume.pdf" download><!-- ✏️ EDIT: resume filename -->
+        <div class="cc-icon cc-b"><svg fill="none" stroke="var(--blue)" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+        <div><div class="cc-label">Resume</div><div class="cc-val">Download PDF</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-name">Karthik Baliga · 2026</div><!-- ✏️ EDIT -->
+  <div class="foot-links">
+    <a href="#hero">Top</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
