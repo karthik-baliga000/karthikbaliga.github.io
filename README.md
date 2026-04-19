@@ -1,1 +1,0 @@
-# karthikbaliga.github.io
